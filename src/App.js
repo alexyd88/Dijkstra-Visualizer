@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import ReactGA from 'react-ga';
 
-ID = G-W2K3RBN9YT
+ID = 'G-W2K3RBN9YT'
 ReactGA.initialize(ID);
 const link = "https://www.googletagmanager.com/gtag/js?id=" + ID
 
