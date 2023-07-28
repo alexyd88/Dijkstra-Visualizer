@@ -3,7 +3,7 @@ import './App.css';
 import ReactGA from 'react-ga';
 import ID from process.env.ID
 ReactGA.initialize(ID);
-const link = "https://www.googletagmanager.com/gtag/js?id=" + TRACKING_ID
+const link = "https://www.googletagmanager.com/gtag/js?id=" + ID
 
 function App() {
   return (
