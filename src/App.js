@@ -1,23 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import ReactGA from 'react-ga';
-
-ID = 'G-W2K3RBN9YT'
-ReactGA.initialize(ID);
-const link = "https://www.googletagmanager.com/gtag/js?id=" + ID
 
 function App() {
   return (
     <div className="App">
-      <script async src={link}></script>
+      <header className="App-header">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-W2K3RBN9YT"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments)}
         gtag('js', new Date());
-        gtag('config', {ID});
-      </script>
 
-      <header className="App-header">
+        gtag('config', 'G-W2K3RBN9YT');
+      </script>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
