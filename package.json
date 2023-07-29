@@ -1,8 +1,8 @@
 {
-  "name": "learn",
+  "name": "Dijkstra-Visualizer",
   "version": "0.1.0",
-  "homepage": "https://alexyd88.github.io/Dijkstra-Visualizer/",
-  "private": true,
+  "homepage": "https://alexyd88.github.io/Dijkstra-Visualizer",
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

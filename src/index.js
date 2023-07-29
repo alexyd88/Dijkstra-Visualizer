@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { Network } from 'vis-network/peer';
 import { DataSet } from 'vis-data/peer';
 import { setTokenSourceMapRange } from "typescript";
+import './index.css';
 
 const lightEdgeColor = '#b5b5b5'
 const darkEdgeColor = '#333a47'
@@ -14,8 +15,8 @@ const startNodeColor = '333a47'
 const INF = 987654321
 
 function display(netNodes, netEdges) {
-    document.getElementById('mynetwork').setAttribute("style","width:500px");
-    document.getElementById('mynetwork').setAttribute("style","height:500px");
+    document.getElementById('mynetwork').setAttribute("style","width:700px");
+    document.getElementById('mynetwork').setAttribute("style","height:600px");
     const data = {
         nodes: netNodes,
         edges: netEdges
@@ -26,6 +27,9 @@ function display(netNodes, netEdges) {
         },
         nodes: {
             chosen: false
+        },
+        physics: {
+            stabilization: false
         }
         /*edges: {
             color: false
@@ -46,7 +50,7 @@ class dijEntry {
 
 function Graph(props) {
     
-    const [nn, setNumNodes] = useState(5);
+    const [nn, setNumNodes] = useState(10);
     const [dij, setDij] = useState(false);
     const [adjWeight, setAdjWeight] = useState([[]]);
     const [adjChild, setAdjChild] = useState([[]]);
@@ -98,7 +102,7 @@ function Graph(props) {
         t3.innerText = 'TO';
         t4.innerText = 'NOTE';
         let ff = false;
-        for (let i = 0; i < potH[step].length; i++)
+        for (let i = potH[step].length-1; i >= 0; i--)
         {
             let row = container.insertRow(-1);
             let c1 = row.insertCell(0);
@@ -125,7 +129,10 @@ function Graph(props) {
     }
     function compareDij(a, b)
     {
-        return a.weight > b.weight;
+        if (a.weight < b.weight)
+            return 1;
+        else
+            return -1;
     }
     function getPa(a)
     {
@@ -232,20 +239,20 @@ function Graph(props) {
             for (let i = 0; i < nn-1; i++)
             {
                 //console.log('hello')
-                while (pot.length != 0 && vis[pot[0].to])
+                while (pot.length != 0 && vis[pot[pot.length-1].to])
                 {
-                    pot.shift();
+                    pot.length--;
                 }
                 if (pot.length == 0)
                 {
                     break;
                 }
                 //console.log(pot.length);
-                ved[pot[0].id] = true;
+                ved[pot[pot.length-1].id] = true;
                 edgeh[i+1] = [...ved];
-                let gt = pot[0].to;
-                dist[gt] = pot[0].weight;
-                pot.shift();
+                let gt = pot[pot.length-1].to;
+                dist[gt] = pot[pot.length-1].weight;
+                pot.length--;
                 distH[i+1] = [...dist];
                 vis[gt] = true;
                 //console.log(vis)
@@ -335,8 +342,16 @@ function Graph(props) {
     });
     const tr = (
         <div>
-            <p>nodes: {nn}<br></br>step: {step}</p>
-            <p>input number of nodes(2-30)</p>
+            <h3>NODES: {nn}<br></br><br></br>STEP: {step}</h3>
+            <button type="button" onClick={() => {
+                if (step > 0)
+                    setStep(step-1);
+            }}>Prev</button>
+            <button type="button" onClick={() => {
+                if (step < nn-1)
+                    setStep(step+1);
+            }}>Next</button>
+            <h3>INPUT NUMBER OF NODES(2-30)</h3>
             <input type="text" id="number" name="number" />
             <br></br>
             <button type="button" onClick={() => {
@@ -349,14 +364,6 @@ function Graph(props) {
                     console.log('tr');
                 }
             }}>Submit</button>
-            <button type="button" onClick={() => {
-                if (step > 0)
-                    setStep(step-1);
-            }}>Prev</button>
-            <button type="button" onClick={() => {
-                if (step < nn-1)
-                    setStep(step+1);
-            }}>Next</button>
         </div>
     );
     return tr;
@@ -367,16 +374,21 @@ function Graph(props) {
 function App() {
     return (
         <div>
-            <div id="mynetwork"></div>
-            <Graph/>
-            <h2>Edges in Priority Queue (min Distance first)</h2>
-            <table id="edgetable" border="1">
-                
-            </table>
-            <h2> Distance to node by ID<br></br></h2>
-            <table id="distancetable" border="1">
-
-            </table>
+            <div id="cont">
+                <div id='c1'>
+                    <div id="mynetwork"></div>
+                    <h3>Drag screen to move view, Drag nodes to change orientation, Scroll to zoom</h3>
+                </div>
+                <div id='c2'>
+                    <Graph/>
+                    <h3>Edges in Priority Queue (min distance first)</h3>
+                    <table id="edgetable" border="1"></table>
+                </div>
+                <div id='c3'>
+                    <h3> Distance to node by ID<br></br></h3>
+                    <table id="distancetable" border="1"></table>
+                </div>
+            </div>
         </div>
     );
 }
