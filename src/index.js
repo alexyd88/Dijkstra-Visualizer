@@ -5,6 +5,9 @@ import { Network } from 'vis-network/peer';
 import { DataSet } from 'vis-data/peer';
 import { setTokenSourceMapRange } from "typescript";
 import './index.css';
+import ReactGA from 'react-ga4'
+
+ReactGA.initialize('G-W2K3RBN9YT')
 
 const lightEdgeColor = '#b5b5b5'
 const darkEdgeColor = '#333a47'
@@ -374,6 +377,16 @@ function Graph(props) {
 function App() {
     return (
         <div>
+            <head>
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-W2K3RBN9YT"></script>
+                <script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){window.dataLayer.push(arguments)}
+                    gtag('js', new Date());
+
+                    gtag('config', 'G-W2K3RBN9YT');
+                </script>
+            </head>
             <div id="cont">
                 <div id='c1'>
                     <div id="mynetwork"></div>
