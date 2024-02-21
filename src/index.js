@@ -5,7 +5,9 @@ import { Network } from 'vis-network/peer';
 import { DataSet } from 'vis-data/peer';
 import { setTokenSourceMapRange } from "typescript";
 import './index.css';
+import './navbar';
 import ReactGA from 'react-ga4'
+import NavBar from "./navbar";
 
 ReactGA.initialize('G-W2K3RBN9YT')
 
@@ -387,6 +389,7 @@ function App() {
                     gtag('config', 'G-W2K3RBN9YT');
                 </script>
             </head>
+            <NavBar/>
             <div id="cont">
                 <div id='c1'>
                     <div id="mynetwork"></div>
